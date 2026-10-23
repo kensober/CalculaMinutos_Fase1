@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CalculaMinutos_Fase1" default="test" basedir=".">
+    <property name="src.dir" value="src" />
+    <property name="test.dir" value="test" />
+    <property name="build.dir" value="build" />
+    <property name="classes.dir" value="${build.dir}/classes" />
+    <property name="test.classes.dir" value="${build.dir}/test-classes" />
+    <property name="results.dir" value="resultados" />
+    <property name="junit.jar" value="../dependencias/junit4.jar" />
+    <property name="hamcrest.jar" value="../dependencias/hamcrest-core.jar" />
+
+    <path id="test.classpath">
+        <pathelement location="${classes.dir}" />
+        <pathelement location="${test.classes.dir}" />
+        <pathelement location="${junit.jar}" />
+        <pathelement location="${hamcrest.jar}" />
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}" />
+        <delete dir="${results.dir}" />
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${classes.dir}" />
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"
+               release="17" includeantruntime="false" encoding="UTF-8" />
+    </target>
+
+    <target name="compile-tests" depends="compile">
+        <available file="${junit.jar}" property="junit.available" />
+        <fail unless="junit.available"
+              message="No se encontro JUnit. Defina -Djunit.jar=/ruta/junit4.jar y -Dhamcrest.jar=/ruta/hamcrest-core.jar" />
+        <mkdir dir="${test.classes.dir}" />
+        <javac srcdir="${test.dir}" destdir="${test.classes.dir}"
+               release="17" includeantruntime="false" encoding="UTF-8"
+               classpathref="test.classpath" />
+    </target>
+
+    <target name="test" depends="compile-tests">
+        <mkdir dir="${results.dir}" />
+        <junit fork="true" printsummary="true" haltonfailure="true">
+            <classpath refid="test.classpath" />
+            <batchtest todir="${results.dir}">
+                <fileset dir="${test.dir}">
+                    <include name="**/*Test.java" />
+                </fileset>
+            </batchtest>
+            <formatter type="plain" usefile="false" />
+            <formatter type="xml" />
+        </junit>
+    </target>
+
+    <target name="run" depends="compile">
+        <java classname="gt.edu.umes.proy.calculo.CalculaMinutos"
+              classpath="${classes.dir}" fork="true">
+            <arg value="1" />
+            <arg value="2" />
+            <arg value="5" />
+            <arg value="3" />
+            <arg value="20" />
+        </java>
+    </target>
+</project>
