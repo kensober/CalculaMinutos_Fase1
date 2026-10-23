@@ -1,3 +1,4 @@
+
 package gt.edu.umes.proy.calculo;
 
 /**
@@ -13,46 +14,83 @@ public final class LogicaDelNegocio {
     private static final long SEGUNDOS_POR_MINUTO = 60L;
 
     /**
-     * Valida que existan cinco parametros y que cada uno sea un entero.
+     * Valida que existan cinco parametros,
+     * que sean enteros y que no sean negativos.
      *
      * @param argumentos meses, semanas, dias, horas y minutos
      * @return los cinco valores convertidos a enteros
-     * @throws IllegalArgumentException si la entrada no cumple el formato solicitado
+     * @throws IllegalArgumentException si la entrada no es valida
      */
     public int[] validarArgumentos(String[] argumentos) {
-        if (argumentos == null || argumentos.length != CANTIDAD_PARAMETROS) {
+
+        if (argumentos == null ||
+                argumentos.length != CANTIDAD_PARAMETROS) {
+
             throw new IllegalArgumentException(
-                    "Debe ingresar exactamente 5 parametros: meses semanas dias horas minutos.");
+                "Debe ingresar exactamente 5 parametros: meses semanas dias horas minutos.");
         }
 
         int[] valores = new int[CANTIDAD_PARAMETROS];
+
         for (int i = 0; i < argumentos.length; i++) {
+
             try {
                 valores[i] = Integer.parseInt(argumentos[i]);
+
             } catch (NumberFormatException excepcion) {
+
                 throw new IllegalArgumentException(
-                        "Todos los parametros deben ser numeros enteros.", excepcion);
+                    "Todos los parametros deben ser numeros enteros.",
+                    excepcion);
+            }
+
+            // Validar que no existan numeros negativos
+            if (valores[i] < 0) {
+                throw new IllegalArgumentException(
+                    "Los parametros no pueden ser negativos.");
             }
         }
+
         return valores;
     }
 
     /**
-     * Convierte el tiempo a segundos. El ejemplo del enunciado confirma que
-     * un mes equivale a 30 dias.
+     * Convierte el tiempo a segundos.
+     * Un mes equivale a 30 dias.
      */
     public long calcularTotalEnSegundos(
-            int meses, int semanas, int dias, int horas, int minutos) {
-        long totalDias = meses * DIAS_POR_MES + semanas * DIAS_POR_SEMANA + dias;
-        long totalHoras = totalDias * HORAS_POR_DIA + horas;
-        long totalMinutos = totalHoras * MINUTOS_POR_HORA + minutos;
+            int meses,
+            int semanas,
+            int dias,
+            int horas,
+            int minutos) {
+
+        long totalDias =
+                meses * DIAS_POR_MES
+                + semanas * DIAS_POR_SEMANA
+                + dias;
+
+        long totalHoras =
+                totalDias * HORAS_POR_DIA + horas;
+
+        long totalMinutos =
+                totalHoras * MINUTOS_POR_HORA + minutos;
+
         return totalMinutos * SEGUNDOS_POR_MINUTO;
     }
 
-    /** Valida los argumentos y realiza el calculo en una sola operacion. */
+    /**
+     * Valida los argumentos y realiza el calculo.
+     */
     public long calcularTotalEnSegundos(String[] argumentos) {
+
         int[] valores = validarArgumentos(argumentos);
+
         return calcularTotalEnSegundos(
-                valores[0], valores[1], valores[2], valores[3], valores[4]);
+                valores[0],
+                valores[1],
+                valores[2],
+                valores[3],
+                valores[4]);
     }
 }
