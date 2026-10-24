@@ -7,6 +7,9 @@ import static org.junit.Assert.assertThrows;
 import org.junit.Before;
 import org.junit.Test;
 
+
+//fecha:23/10/2026
+//logica de negocio
 public class LogicaDelNegocioTest {
 
     private LogicaDelNegocio logica;
