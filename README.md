@@ -21,14 +21,14 @@ Desde Eclipse, ejecute la clase
 Desde una terminal, compile y ejecute todas las pruebas JUnit 4 y JUnit 6:
 
 ```bash
-mvn clean test
+~/.local/bin/mvn clean test
 ```
 
 El proyecto contiene siete pruebas: cinco de la fase 1 y dos de la fase 2.
 Para ejecutar el programa después de compilar:
 
 ```bash
-mvn compile
+~/.local/bin/mvn compile
 java -cp target/classes gt.edu.umes.proy.calculo.CalculaMinutos 1 2 5 3 20
 ```
 
@@ -45,7 +45,7 @@ guardar el archivo y ejecutar:
 
 ```bash
 git diff
-mvn clean test
+~/.local/bin/mvn clean test
 git add .
 git commit -m "Ajusta mensaje durante demostracion"
 git push origin main
