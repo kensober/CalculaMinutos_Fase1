@@ -1,6 +1,6 @@
-# CalculaMinutos - Fase 1
+# CalculaMinutos - Fase 2
 
-Proyecto Java para Ingeniería de Software 2. Recibe cinco enteros en este orden:
+Proyecto Java con Maven para Ingeniería de Software 2. Recibe cinco enteros en este orden:
 
 1. meses
 2. semanas
@@ -18,26 +18,24 @@ Desde Eclipse, ejecute la clase
 `gt.edu.umes.proy.calculo.CalculaMinutos` con los argumentos
 `1 2 5 3 20`.
 
-Desde una terminal:
+Desde una terminal, compile y ejecute todas las pruebas JUnit 4 y JUnit 6:
 
 ```bash
-ant run
+mvn clean test
 ```
 
-El resultado esperado es:
+El proyecto contiene siete pruebas: cinco de la fase 1 y dos de la fase 2.
+Para ejecutar el programa después de compilar:
+
+```bash
+mvn compile
+java -cp target/classes gt.edu.umes.proy.calculo.CalculaMinutos 1 2 5 3 20
+```
+
+El resultado esperado del programa es:
 
 ```text
 Total en segundos: 4245600
-```
-
-## Pruebas automatizadas
-
-Eclipse usa su contenedor JUnit 4. Con Ant, si las dependencias no están en el
-directorio hermano `dependencias`, indique sus rutas:
-
-```bash
-ant -Djunit.jar=/ruta/junit4.jar \
-     -Dhamcrest.jar=/ruta/hamcrest-core.jar test
 ```
 
 ## Demostración de cambio, commit y push
@@ -47,7 +45,7 @@ guardar el archivo y ejecutar:
 
 ```bash
 git diff
-ant test
+mvn clean test
 git add .
 git commit -m "Ajusta mensaje durante demostracion"
 git push origin main
